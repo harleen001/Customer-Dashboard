@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useCustomers } from "./hooks/useCustomers";
+import { CustomerTable } from "./components/dashboard/DataTable";
+import { useCustomerStore } from "./store/useCustomerStore";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { customers, isLoading, deleteCustomers } = useCustomers();
+  const { selectedCustomerIds, clearSelection } = useCustomerStore();
+
+  const handleDelete = () => {
+    deleteCustomers(selectedCustomerIds, {
+      onSuccess: () => clearSelection(),
+    });
+  };
+
+  if (isLoading) return <div className="p-10 text-center">Loading Dashboard...</div>;
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="p-10 space-y-4">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Customer Payments</h1>
+        
+        <div className="space-x-2">
+          {selectedCustomerIds.length > 0 && (
+            <button 
+              onClick={handleDelete}
+              className="bg-red-600 text-white px-4 py-2 rounded-md"
+            >
+              Delete Selected ({selectedCustomerIds.length})
+            </button>
+          )}
+          <button className="bg-black text-white px-4 py-2 rounded-md">
+            {selectedCustomerIds.length === 1 ? "Update Customer" : "Add Customer"}
+          </button>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
 
-export default App
+      <CustomerTable data={customers} />
+    </div>
+  );
+}
