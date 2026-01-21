@@ -56,15 +56,17 @@ export const CustomerTable = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-table-header-bg border-b border-table-border">
-                <tr>
-                  <th className="px-4 py-3 w-12">
-                    <Checkbox
-                      checked={allOnPageSelected}
-                      onCheckedChange={() => selectAll(currentPageIds)}
-                      aria-label="Select all on page"
-                      className={someOnPageSelected && !allOnPageSelected ? "data-[state=checked]:bg-primary" : ""}
-                    />
-                  </th>
+            {/* Added border-l-4 transparent to match the row alignment */}
+            <tr className="border-l-4 border-l-transparent">
+              <th className="px-4 py-3 w-12">
+                <Checkbox
+                  checked={allOnPageSelected}
+                  onCheckedChange={() => selectAll(currentPageIds)}
+                  aria-label="Select all on page"
+                  // FIX: Applied square styling and brand blue
+                  className="h-5 w-5 rounded-[4px] border-muted-foreground/30 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                />
+              </th>
                   <th className="px-4 py-3 w-16">
                     <div className="flex items-center justify-center gap-1 text-xs font-medium text-muted-foreground uppercase">
                       #
