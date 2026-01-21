@@ -1,38 +1,78 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "../lib/api";
-import type { Customer } from "../types/customer";
+import { mockApi } from "../lib/mockData";
+import type { Customer, CustomerFormData } from "../types/customer";
+import { toast } from "../hooks/use-toast";
 
-export function useCustomers() {
+export const useCustomers = () => {
+  return useQuery({
+    queryKey: ["customers"],
+    queryFn: mockApi.getCustomers,
+  });
+};
+
+export const useAddCustomer = () => {
   const queryClient = useQueryClient();
 
-  // Fetching data
-  const query = useQuery({
-    queryKey: ["customers"],
-    queryFn: api.fetchCustomers,
-  });
-
-  // Mutating (Saving/Updating)
-  const saveMutation = useMutation({
-    mutationFn: api.saveCustomer,
-    onSuccess: () => {
-      // This tells TanStack Query to re-fetch the data automatically
-      queryClient.invalidateQueries({ queryKey: ["customers"] });
-    },
-  });
-
-  // Mutating (Deleting)
-  const deleteMutation = useMutation({
-    mutationFn: api.deleteCustomers,
+  return useMutation({
+    mutationFn: (data: CustomerFormData) => mockApi.addCustomer(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customers"] });
+      toast({
+        title: "Success",
+        description: "Customer added successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to add customer",
+        variant: "destructive",
+      });
     },
   });
+};
 
-  return {
-    customers: query.data ?? [],
-    isLoading: query.isLoading,
-    saveCustomer: saveMutation.mutate,
-    deleteCustomers: deleteMutation.mutate,
-    isSaving: saveMutation.isPending,
-  };
-}
+export const useUpdateCustomer = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Partial<Customer> }) =>
+      mockApi.updateCustomer(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
+      toast({
+        title: "Success",
+        description: "Customer updated successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update customer",
+        variant: "destructive",
+      });
+    },
+  });
+};
+
+export const useDeleteCustomers = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (ids: string[]) => mockApi.deleteCustomers(ids),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
+      toast({
+        title: "Success",
+        description: "Customer(s) deleted successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete customer(s)",
+        variant: "destructive",
+      });
+    },
+  });
+};
