@@ -119,4 +119,4 @@ export const CustomerTableRow = ({ customer, index }: CustomerTableRowProps) => 
       </td>
     </tr>
   );
-};
+}

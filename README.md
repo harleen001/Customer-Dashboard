@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+Customer Payment Dashboard
+A high-performance, pixel-perfect React dashboard built as part of a Frontend Developer Technical Assessment. This application manages customer payment data with full CRUD capabilities, persistent mock storage, and a refined UI.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Tech Stack
+Framework: React 18 (Vite)
 
-Currently, two official plugins are available:
+Language: TypeScript
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+State Management (UI): Zustand (Selection logic, Modal states)
 
-## React Compiler
+State Management (Server): TanStack Query v5 (Data fetching, caching, and mutations)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Styling: Tailwind CSS + ShadCn UI
 
-## Expanding the ESLint configuration
+Form Handling: React Hook Form + Zod (Validation)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Icons: Lucide React
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Architectural Choices
+1. State Separation
+I implemented a dual-state architecture to ensure high performance and maintainability:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+TanStack Query: Handles all "Server-side" logic. It manages the lifecycle of customer data, including loading states, caching, and automatic re-fetching after mutations (Add/Update/Delete).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Zustand: Manages "Client-side" UI state. Specifically, it tracks row selections and search queries, allowing for a decoupled and lightweight way to communicate between the Header, Table, and Modal components.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Mock API & Persistence
+To simulate a real-world environment, I created an asynchronous API wrapper in src/lib/api.ts.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Uses localStorage to persist data across page refreshes.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Implements artificial delays to demonstrate TanStack Query's loading/skeleton states.
+
+Maps raw data to the required TypeScript Customer interface.
+
+3. Pixel-Perfect UI
+Custom Design System: Extended tailwind.config.ts with custom HSL variables to match Figma's specific status colors (Open/Paid/Due/Inactive).
+
+ShadCn Customization: Modified the standard ShadCn Checkbox and Table components to achieve the specific square-edge design and blue brand indicators requested.
+
+📦 Installation & Setup
+Clone the repository:
+
+Bash
+git clone https://github.com/your-username/customer-dashboard.git
+cd customer-dashboard
+Install dependencies:
+npm install
+
+Run the development server:
+npm run dev
+
+Build for production:
+npm run build
+
+Features implemented
+✅ Dynamic Table: Responsive layout with conditional status badges.
+✅ Smart Selection: Contextual buttons that swap between "Add Customer" and "Update Customer" based on row selection.
+✅ Bulk Actions: Ability to select multiple rows and perform bulk deletions.
+✅ Form Validation: Robust validation using Zod to prevent incorrect data entry.
+✅ Search & Filtering: Real-time client-side filtering via the search bar.
+✅ Loading States: Integrated Skeletons for a smooth user experience during data fetching.
+
+📂 Project Structure
+Plaintext
+src/
+├── components/       # ShadCn & Layout components
+│   ├── dashboard/    # Table, Header, Row, and Modal logic
+│   └── ui/           # Base ShadCn atoms (Checkbox, Button, etc.)
+├── hooks/            # TanStack Query custom hooks
+├── lib/              # API wrapper and utility functions
+├── store/            # Zustand UI state management
+├── types/            # TypeScript interfaces
+└── App.tsx           # Main application entry
