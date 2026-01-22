@@ -33,7 +33,6 @@ export const CustomerTable = () => {
 
   const currentPageIds = paginatedCustomers.map((c) => c.id);
   const allOnPageSelected = currentPageIds.length > 0 && currentPageIds.every((id) => selectedIds.has(id));
-  const someOnPageSelected = currentPageIds.some((id) => selectedIds.has(id));
 
   if (isLoading) {
     return (
