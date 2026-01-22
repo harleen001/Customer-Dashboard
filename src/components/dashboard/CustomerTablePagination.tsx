@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useCustomerStore } from "../../store/CustomerStore";
+import { useCustomerStore } from "../../store/customerStore";
 
 interface CustomerTablePaginationProps {
   totalItems: number;

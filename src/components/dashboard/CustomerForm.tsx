@@ -26,8 +26,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
-import type { CustomerFormData, CustomerStatus, Customer } from "../../types/customer";
-import { useCustomerStore } from "../../store/CustomerStore";
+import type { CustomerFormData} from "../../types/customer";
+import { useCustomerStore } from "../../store/customerStore";
 import { useAddCustomer, useUpdateCustomer, useCustomers } from "../../hooks/useCustomers";
 
 const formSchema = z.object({

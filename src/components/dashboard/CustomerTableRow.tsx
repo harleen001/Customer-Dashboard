@@ -1,7 +1,7 @@
 import type { Customer } from "../../types/customer";
 import { StatusBadge } from "./StatusBadge";
 import { Checkbox } from "../ui/checkbox";
-import { useCustomerStore } from "../../store/CustomerStore";
+import { useCustomerStore } from "../../store/customerStore";
 import { useDeleteCustomers } from "../../hooks/useCustomers";
 import { cn } from "../../lib/utils";
 import { MoreVertical, Pencil, Trash2, Eye } from "lucide-react";

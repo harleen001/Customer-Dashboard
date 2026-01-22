@@ -6,7 +6,7 @@ import { CustomerTableHeader } from "./CustomerTableHeader";
 import { CustomerTableRow } from "./CustomerTableRow";
 import { CustomerTablePagination } from "./CustomerTablePagination";
 import { useCustomers } from "../../hooks/useCustomers";
-import { useCustomerStore } from "../../store/CustomerStore";
+import { useCustomerStore } from "../../store/customerStore";
 
 export const CustomerTable = () => {
   const { data: customers, isLoading } = useCustomers();
