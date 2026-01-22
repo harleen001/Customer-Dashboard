@@ -1,7 +1,7 @@
 import { Filter, Search, Plus, Trash2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { useCustomerStore } from "../../store/CustomerStore";
+import { useCustomerStore } from "../../store/customerStore";
 import { useDeleteCustomers } from "../../hooks/useCustomers";
 
 interface CustomerTableHeaderProps {
