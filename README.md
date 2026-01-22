@@ -34,21 +34,9 @@ Run the development server:```npm run dev```
 Build for production:```npm run build```
 
 ## Features implemented
-✅ **Dynamic Table:** Responsive layout with conditional status badges.
-✅ **Smart Selection:** Contextual buttons that swap between "Add Customer" and "Update Customer" based on row selection.
-✅ **Bulk Actions:** Ability to select multiple rows and perform bulk deletions.
-✅ **Form Validation:** Robust validation using Zod to prevent incorrect data entry.
-✅ **Search & Filtering:** Real-time client-side filtering via the search bar.
-✅ **Loading States:** Integrated Skeletons for a smooth user experience during data fetching.
-
-## 📂 Project Structure
-
-src/
-   components/       # ShadCn & Layout components
-      dashboard/    # Table, Header, Row, and Modal logic
-      ui/           # Base ShadCn atoms (Checkbox, Button, etc.)
-  hooks/            # TanStack Query custom hooks
-  lib/              # API wrapper and utility functions
-  store/            # Zustand UI state management
-  types/            # TypeScript interfaces
-  App.tsx           # Main application entry
+1. ✅ **Dynamic Table:** Responsive layout with conditional status badges.
+2. ✅ **Smart Selection:** Contextual buttons that swap between "Add Customer" and "Update Customer" based on row selection.
+3. ✅ **Bulk Actions:** Ability to select multiple rows and perform bulk deletions.
+4. ✅ **Form Validation:** Robust validation using Zod to prevent incorrect data entry.
+5. ✅ **Search & Filtering:** Real-time client-side filtering via the search bar.
+6. ✅ **Loading States:** Integrated Skeletons for a smooth user experience during data fetching.
